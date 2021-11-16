@@ -1,1 +1,0 @@
-from dataManager.loadfiles4CIE import RGBImage
