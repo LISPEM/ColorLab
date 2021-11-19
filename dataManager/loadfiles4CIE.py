@@ -80,6 +80,8 @@ class RGBImage(QMainWindow):
         chars_to_be_removed = r'^[^<>/{}[\]~`]*$&#@!;,:'
         filtered_chars = filter(lambda item: item not in chars_to_be_removed, image_title)
         image_name = ''.join(filtered_chars)
+        if not os.path.isdir('images/'):
+            os.mkdir('images/')
         image_name = r'images/' + image_name + '.png'
         # if re1.match(image_title):
         #     print ("Image name is valid!")
