@@ -43,6 +43,7 @@ class RGBImage(QMainWindow):
         
         self.statusBar().clearMessage()
         filelist = os.listdir(self.filepath)
+        filelist.sort()
         spec_illum = str(self.gui.comboBox.currentText()) # specify the illuminant
         cscalar =  int(self.gui.comboBox_2.currentText()) # specify saturation scalar
         image_title = str(self.gui.lineEdit_2.text())
