@@ -139,3 +139,7 @@ cython_debug/
 
 #VSCode settings
 .vscode
+
+# Image related stuff
+images/
+*.png
