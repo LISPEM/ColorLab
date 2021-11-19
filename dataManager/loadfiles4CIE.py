@@ -11,6 +11,12 @@ import pandas as pd
 import numpy as np
 from dataManager.CIE_XYZ import CIElab
 import matplotlib.pyplot as plt
+from matplotlib import rcParams
+rcParams['font.family'] = 'sans-serif'
+rcParams['font.sans-serif'] = ['Calibri']
+rcParams['font.weight'] = 'bold'
+rcParams['axes.labelweight'] = 'bold'
+rcParams['savefig.dpi'] = 300
 from PyQt5.QtWidgets import QMainWindow, QFileDialog
 from ui.cl import Ui_MainWindow
 
@@ -203,8 +209,11 @@ class RGBImage(QMainWindow):
             
         len_colormat = len(colormat)
 
+        # general matplotlib settings
+        plt.rc('font', size=20)
+        # Plotting options can be changed here SY
         if (len_colormat > 1):
-            fig, ax = plt.subplots(1,1)
+            fig, ax = plt.subplots(1,1, figsize=(11,7))
             # figure out axis ticks
             # f_idx = new_num_files*0
             # s_idx = round(new_num_files*0.33)
@@ -216,20 +225,29 @@ class RGBImage(QMainWindow):
             # ax.set_xticklabels(label_list)
             if seconds_convert == 3600:
                 ax.imshow(colormat,extent=[delta[0,0],np.max(delta)/60,delta[0,0],np.max(delta)/60],
-                      aspect=image_aspect)
+                      aspect='auto')
             else:
                 ax.imshow(colormat,extent=[delta[0,0],np.max(delta),delta[0,0],np.max(delta)],
-                      aspect=image_aspect)
+                      aspect='auto')
             ax.axes.get_yaxis().set_visible(False)
             ax.set_xlabel(units)
-            ax.set_title(image_title)
+
+            for axis in ['top', 'bottom', 'right', 'left']:
+                ax.spines[axis].set_linewidth(2)
+            ax.tick_params(length=10, width=2, pad=5)
+            # ax.set_title(image_title)
+            plt.tight_layout()
             fig.savefig(image_name)
         else:
             fig, ax = plt.subplots(1,1)
             ax.imshow(colormat,aspect=image_aspect)
             ax.axes.get_xaxis().set_visible(False)
             ax.axes.get_yaxis().set_visible(False)
-            ax.set_title(image_title)
+            # ax.set_title(image_title)
+            for axis in ['top', 'bottom', 'right', 'left']:
+                ax.spines[axis].set_linewidth(2)
+            ax.tick_params(length=10, width=2, pad=5)
+            plt.tight_layout()
             fig.savefig(image_name)
         
         
