@@ -35,7 +35,8 @@ def CIElab(spec_illum, illum, cscalar, df_list, x_bar, y_bar, z_bar, calcRGB):
     # convert to transmission
     # T = 10**(2-(S*cscalar))
     T = trimmed_data["FT"]
-    T = T ** (1/cscalar)
+    T = (1+T)*100
+
 
     N = sum(y_bar*np.asarray(trimmed_illum[spec_illum])) # normalizing term
     CIE_X = sum(T*x_bar*np.asarray(trimmed_illum[spec_illum]))*(1/N)
