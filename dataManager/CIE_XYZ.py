@@ -31,9 +31,11 @@ def CIElab(spec_illum, illum, cscalar, df_list, x_bar, y_bar, z_bar, calcRGB):
     trimmed_illum.reset_index(inplace=True, drop=True) # reset indices
 
     #S = trimmed_data["FA (1-FR-FT)"]
-    S = trimmed_data["FA (1-FR-FT)"]
+    # S = trimmed_data["FA (1-FR-FT)"]
     # convert to transmission
-    T = 10**(2-(S*cscalar))
+    # T = 10**(2-(S*cscalar))
+    T = trimmed_data["FT"]
+    T = T ** (1/cscalar)
 
     N = sum(y_bar*np.asarray(trimmed_illum[spec_illum])) # normalizing term
     CIE_X = sum(T*x_bar*np.asarray(trimmed_illum[spec_illum]))*(1/N)
