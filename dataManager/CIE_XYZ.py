@@ -35,13 +35,25 @@ def CIElab(spec_illum, illum, cscalar, df_list, x_bar, y_bar, z_bar, calcRGB):
     # convert to transmission
     # T = 10**(2-(S*cscalar))
     T = trimmed_data["FT"]
-    T = (1+T)*100
+    T = (1+T)
 
 
-    N = sum(y_bar*np.asarray(trimmed_illum[spec_illum])) # normalizing term
-    CIE_X = sum(T*x_bar*np.asarray(trimmed_illum[spec_illum]))*(1/N)
-    CIE_Y = sum(T*y_bar*np.asarray(trimmed_illum[spec_illum]))*(1/N)
-    CIE_Z = sum(T*z_bar*np.asarray(trimmed_illum[spec_illum]))*(1/N)
+
+    # N = sum(y_bar*np.asarray(trimmed_illum[spec_illum])) # normalizing term
+    # CIE_X = sum(T*x_bar*np.asarray(trimmed_illum[spec_illum]))*(1/N)
+    # CIE_Y = sum(T*y_bar*np.asarray(trimmed_illum[spec_illum]))*(1/N)
+    # CIE_Z = sum(T*z_bar*np.asarray(trimmed_illum[spec_illum]))*(1/N)
+    # print(CIE_X, CIE_Y, CIE_Z)
+
+    K = sum(y_bar*np.asarray(trimmed_illum[spec_illum])) # normalizing term
+    CIE_X = sum(T*x_bar*np.asarray(trimmed_illum[spec_illum])) * (100 / K)
+    CIE_Y = sum(T*y_bar*np.asarray(trimmed_illum[spec_illum])) * (100 / K)
+    CIE_Z = sum(T*z_bar*np.asarray(trimmed_illum[spec_illum])) * (100 / K)
+    
+    total = CIE_X + CIE_Y + CIE_Z
+    CIE_X = CIE_X / total
+    CIE_Y = CIE_Y / total
+    CIE_Z = CIE_Z / total
     
     if calcRGB: # convert X,Y,Z tristimulus values to rgb
         r,g,b = xyz2rbg(CIE_X,CIE_Y,CIE_Z)
@@ -52,9 +64,9 @@ def CIElab(spec_illum, illum, cscalar, df_list, x_bar, y_bar, z_bar, calcRGB):
 
     # find L* a* b*
     # values for Illuminant C
-    x_ref = 98.074
-    y_ref = 100.0
-    z_ref = 118.232
+    x_ref = 70
+    y_ref = 10.0
+    z_ref = 13.232
 
     var_x = CIE_X/x_ref
     var_y = CIE_Y/y_ref
@@ -83,9 +95,12 @@ def CIElab(spec_illum, illum, cscalar, df_list, x_bar, y_bar, z_bar, calcRGB):
     return CIE_L,CIE_a,CIE_b,r,g,b
 
 def xyz2rbg(X,Y,Z):
-    var_X = X/100
-    var_Y = Y/100
-    var_Z = Z/100
+    # var_X = X/100
+    # var_Y = Y/100
+    # var_Z = Z/100
+    var_X = X
+    var_Y = Y
+    var_Z = Z
     
     var_R = var_X * 2.04137 + var_Y * - 0.56495 + var_Z * -0.34469
     var_G = var_X * -0.96927 + var_Y *  1.87601 + var_Z *  0.04156
