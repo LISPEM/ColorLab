@@ -43,7 +43,6 @@ def CIElab(spec_illum, illum, cscalar, df_list, x_bar, y_bar, z_bar, calcRGB):
     CIE_X = sum(T*x_bar*np.asarray(trimmed_illum[spec_illum]))*(1/N)
     CIE_Y = sum(T*y_bar*np.asarray(trimmed_illum[spec_illum]))*(1/N)
     CIE_Z = sum(T*z_bar*np.asarray(trimmed_illum[spec_illum]))*(1/N)
-    print(CIE_X, CIE_Y, CIE_Z)
 
     # K = sum(y_bar*np.asarray(trimmed_illum[spec_illum])) # normalizing term
     # CIE_X = sum(T*x_bar*np.asarray(trimmed_illum[spec_illum])) * (K)
@@ -62,55 +61,27 @@ def CIElab(spec_illum, illum, cscalar, df_list, x_bar, y_bar, z_bar, calcRGB):
     print(CIE_X, CIE_Y, CIE_Z)
     
     if calcRGB: # convert X,Y,Z tristimulus values to rgb
-        r,g,b = xyz2rbg(CIE_X,CIE_Y,CIE_Z)
+        r,g,b = xyz2rbg(spec_illum,CIE_X,CIE_Y,CIE_Z)
     else:
         r = 0
         g = 0
         b = 0
 
-    # find L* a* b*
-    # values for Illuminant C
-    x_ref = 70
-    y_ref = 10.0
-    z_ref = 13.232
-
-    var_x = CIE_X/x_ref
-    var_y = CIE_Y/y_ref
-    var_z = CIE_Z/z_ref
-
-    if (var_x > 0.008856): # unless X,Y,Z are very small, calculation uses cube root.  condition defined by CIE lab calculation rules.
-        var_x = var_x**(1/3)
-    else:
-        var_x = (7.787 * var_x) + (16/116)
-    
-    if (var_y > 0.008856):
-        var_y = var_y**(1/3)
-    else:
-        var_y = (7.787 * var_y) + (16/116)
-    
-    if (var_z > 0.008856):
-        var_z = var_z**(1/3)
-    else:
-        var_z = (7.787 * var_z) + (16/116)
-    
-    # calculating L*a*b* from XYZ
-    CIE_L = (116*var_y) - 16
-    CIE_a = 500 * (var_x - var_y)
-    CIE_b = 200 * (var_y - var_z)
+    #depreciated, too lazy to get rid of these vestigial variables.
+    CIE_L = 0
+    CIE_a = 0
+    CIE_b = 0
     
     return CIE_L,CIE_a,CIE_b,r,g,b
 
-def xyz2rbg(X,Y,Z):
+def xyz2rbg(spec_illum,X,Y,Z):
     # var_X = X/100
     # var_Y = Y/100
     # var_Z = Z/100
-    var_X = X
-    var_Y = Y
-    var_Z = Z
     
-    R = X * 2.04137 + Y * - 0.56495 + Z * -0.34469
-    G = X * -0.96927 + Y *  1.87601 + Z *  0.04156
-    B = X *  0.01345 + Y * -0.11839 + Z *  1.01541
+    R = (X * 3.2410) + (Y * -1.5374) + (Z * 0.4986)
+    G = (X * -0.9692) + (Y * 1.8760) + (Z * 0.0416)
+    B = (X * 0.0556) + (Y * -0.2040) + (Z * 1.0570)
 
     print(R, G, B)
     def gamma_adj(C):
@@ -118,16 +89,16 @@ def xyz2rbg(X,Y,Z):
             return 12.92 * C
         else:
             return (1.055 * (C**0.41666)-0.055)
-
+    print(R,G,B)
 
     # var_R_2 = var_R ** ( 1 / 2.19921875 )
     # var_G_2 = var_G ** ( 1 / 2.19921875 )
     # var_B_2 = var_B ** ( 1 / 2.19921875 )
-
+    print(R,G,B)
     R = gamma_adj(R)
     G = gamma_adj(G)
     B = gamma_adj(B)
-    print(R, G, B)
+    print(R,G,B)
 
     max_val = max(R,G,B)
     
@@ -139,6 +110,8 @@ def xyz2rbg(X,Y,Z):
     r = R * 255
     g = G * 255
     b = B * 255
+
+    print(r,g,b)
     
     return r, g, b
     
