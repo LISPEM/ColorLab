@@ -39,26 +39,18 @@ def CIElab(spec_illum, illum, cscalar, df_list, x_bar, y_bar, z_bar, calcRGB):
 
 
 
-    N = sum(y_bar*np.asarray(trimmed_illum[spec_illum])) # normalizing term
-    CIE_X = sum(T*x_bar*np.asarray(trimmed_illum[spec_illum]))*(1/N)
-    CIE_Y = sum(T*y_bar*np.asarray(trimmed_illum[spec_illum]))*(1/N)
-    CIE_Z = sum(T*z_bar*np.asarray(trimmed_illum[spec_illum]))*(1/N)
+    # N = sum(y_bar*np.asarray(trimmed_illum[spec_illum])) # normalizing term
+    # CIE_X = sum(T*x_bar*np.asarray(trimmed_illum[spec_illum]))*(1/N)
+    # CIE_Y = sum(T*y_bar*np.asarray(trimmed_illum[spec_illum]))*(1/N)
+    # CIE_Z = sum(T*z_bar*np.asarray(trimmed_illum[spec_illum]))*(1/N)
 
-    # K = sum(y_bar*np.asarray(trimmed_illum[spec_illum])) # normalizing term
-    # CIE_X = sum(T*x_bar*np.asarray(trimmed_illum[spec_illum])) * (K)
-    # CIE_Y = sum(T*y_bar*np.asarray(trimmed_illum[spec_illum])) * (K)
-    # CIE_Z = sum(T*z_bar*np.asarray(trimmed_illum[spec_illum])) * (K)
-    # max_cie = max(CIE_X, CIE_Y, CIE_Z)
+    K = 1 / sum(y_bar*np.asarray(trimmed_illum[spec_illum])) # normalizing term
+    CIE_X = sum(T*x_bar*np.asarray(trimmed_illum[spec_illum])) * (K)
+    CIE_Y = sum(T*y_bar*np.asarray(trimmed_illum[spec_illum])) * (K)
+    CIE_Z = sum(T*z_bar*np.asarray(trimmed_illum[spec_illum])) * (K)
 
-    # CIE_X = CIE_X / max_cie
-    # CIE_Y = CIE_Y / max_cie
-    # CIE_Z = CIE_Z / max_cie
-    # total = CIE_X + CIE_Y + CIE_Z
-    # CIE_X = CIE_X / total
-    # CIE_Y = CIE_Y / total
-    # CIE_Z = CIE_Z / total
 
-    print(CIE_X, CIE_Y, CIE_Z)
+    print("CIE XYZ:", CIE_X, CIE_Y, CIE_Z)
     
     if calcRGB: # convert X,Y,Z tristimulus values to rgb
         r,g,b = xyz2rbg(spec_illum,CIE_X,CIE_Y,CIE_Z)
@@ -75,41 +67,42 @@ def CIElab(spec_illum, illum, cscalar, df_list, x_bar, y_bar, z_bar, calcRGB):
     return CIE_L,CIE_a,CIE_b,r,g,b
 
 def xyz2rbg(spec_illum,X,Y,Z):
-    # var_X = X/100
-    # var_Y = Y/100
-    # var_Z = Z/100
     
-    R = (X * 3.2410) + (Y * -1.5374) + (Z * 0.4986)
-    G = (X * -0.9692) + (Y * 1.8760) + (Z * 0.0416)
-    B = (X * 0.0556) + (Y * -0.2040) + (Z * 1.0570)
 
-    print(R, G, B)
-    def gamma_adj(C):
-        if C < 0.0031308:
-            return 12.92 * C
-        else:
-            return (1.055 * (C**0.41666)-0.055)
-    print(R,G,B)
+    # sRGB 
+    def sRGB(X, Y, Z):
+        R = (X * 3.2410) + (Y * -1.5374) + (Z * -0.4986)
+        G = (X * -0.9692) + (Y * 1.8760) + (Z * 0.0416)
+        B = (X * 0.0556) + (Y * -0.2040) + (Z * 1.0570)
 
-    # var_R_2 = var_R ** ( 1 / 2.19921875 )
-    # var_G_2 = var_G ** ( 1 / 2.19921875 )
-    # var_B_2 = var_B ** ( 1 / 2.19921875 )
-    print(R,G,B)
-    R = gamma_adj(R)
-    G = gamma_adj(G)
-    B = gamma_adj(B)
-    print(R,G,B)
+        
 
-    max_val = max(R,G,B)
-    
-    R /= max_val
-    G /= max_val
-    B /= max_val
+        def gamma_adj(C):
+            if C < 0.0031308:
+                return 12.92 * C
+            else:
+                return (1.055 * (C**0.41666)-0.055)
+
+        maxVal = max(R,G,B)
+
+        R = gamma_adj(R)
+        G = gamma_adj(G)
+        B = gamma_adj(B)
+
+        return R, G, B
+
+
+    def adobeRGB(X,Y,Z):
+        print("in the works")
+        
+
+    R, G, B = sRGB(X, Y, Z)
+    print("post gamma RGB", R, G, B)
 
     # sRGB conversion
-    r = R * 255
-    g = G * 255
-    b = B * 255
+    r = round(R * 255, 0)
+    g = round(G * 255, 0)
+    b = round(B * 255, 0)
 
     print(r,g,b)
     
