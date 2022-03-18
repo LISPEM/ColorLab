@@ -29,29 +29,31 @@ def CIElab(spec_illum, illum, cscalar, df_list, x_bar, y_bar, z_bar, calcRGB):
 
     trimmed_illum = illum.iloc[temp_3:temp_4+1,:]
     trimmed_illum.reset_index(inplace=True, drop=True) # reset indices
-
-    #S = trimmed_data["FA (1-FR-FT)"]
-    # S = trimmed_data["FA (1-FR-FT)"]
-    # convert to transmission
-    # T = 10**(2-(S*cscalar))
     T = trimmed_data["FT"]
     T = (1+T)
 
 
-
-    # N = sum(y_bar*np.asarray(trimmed_illum[spec_illum])) # normalizing term
-    # CIE_X = sum(T*x_bar*np.asarray(trimmed_illum[spec_illum]))*(1/N)
-    # CIE_Y = sum(T*y_bar*np.asarray(trimmed_illum[spec_illum]))*(1/N)
-    # CIE_Z = sum(T*z_bar*np.asarray(trimmed_illum[spec_illum]))*(1/N)
-
-    K = 1 / sum(y_bar*np.asarray(trimmed_illum[spec_illum])) # normalizing term
-    CIE_X = sum(T*x_bar*np.asarray(trimmed_illum[spec_illum])) * (K)
-    CIE_Y = sum(T*y_bar*np.asarray(trimmed_illum[spec_illum])) * (K)
-    CIE_Z = sum(T*z_bar*np.asarray(trimmed_illum[spec_illum])) * (K)
+    def tristimCalc(T, spec_illum):
+        K = 1 / sum(y_bar*np.asarray(trimmed_illum[spec_illum])) # normalizing term
+        CIE_X = sum(T*x_bar*np.asarray(trimmed_illum[spec_illum])) * (K)
+        CIE_Y = sum(T*y_bar*np.asarray(trimmed_illum[spec_illum])) * (K)
+        CIE_Z = sum(T*z_bar*np.asarray(trimmed_illum[spec_illum])) * (K)
+        print(spec_illum, "CIE XYZ:", CIE_X, CIE_Y, CIE_Z)
+        return CIE_X, CIE_Y, CIE_Z
 
 
-    print("CIE XYZ:", CIE_X, CIE_Y, CIE_Z)
+    CIE_X, CIE_Y, CIE_Z = tristimCalc(T, spec_illum)
+    D65_X, D65_Y, D65_Z = tristimCalc(T, "Standard Illuminant D65")
+
     
+    def bradford():
+        ma = np.matrix([[0.8951000, 0.266400, -0.1614000], [-0.7502000, 1.7135000, 0.036700], [0.0389000, -0.0685000, 1.0296000]])
+        inv_ma = ma ** -1
+
+        print(ma)
+        print(inv_ma)
+    bradford()
+
     if calcRGB: # convert X,Y,Z tristimulus values to rgb
         r,g,b = xyz2rbg(spec_illum,CIE_X,CIE_Y,CIE_Z)
     else:
@@ -68,7 +70,7 @@ def CIElab(spec_illum, illum, cscalar, df_list, x_bar, y_bar, z_bar, calcRGB):
 
 def xyz2rbg(spec_illum,X,Y,Z):
     
-
+    
     # sRGB 
     def sRGB(X, Y, Z):
         R = (X * 3.2410) + (Y * -1.5374) + (Z * -0.4986)
