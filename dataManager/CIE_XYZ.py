@@ -46,13 +46,27 @@ def CIElab(spec_illum, illum, cscalar, df_list, x_bar, y_bar, z_bar, calcRGB):
     D65_X, D65_Y, D65_Z = tristimCalc(T, "Standard Illuminant D65")
 
     
-    def bradford():
+    def bradford(CIE_X, CIE_Y, CIE_Z):
+        source = np.matrix([[CIE_X], [CIE_Y], [CIE_Z]])
+        print(source)
+        # D65 will always be destination color
         ma = np.matrix([[0.8951000, 0.266400, -0.1614000], [-0.7502000, 1.7135000, 0.036700], [0.0389000, -0.0685000, 1.0296000]])
         inv_ma = ma ** -1
+        
+        d65_white = np.matrix([[0.95047], [1.0000], [1.08883]])
+        a_white = np.matrix([[1.09850], [1.000], [0.35585]])
 
-        print(ma)
-        print(inv_ma)
-    bradford()
+        # cone response matrices
+        d65_cr = ma * d65_white
+        a_cr = ma * a_white
+        
+        term_matrix = np.matrix([[(d65_cr[0,0]/a_cr[0,0]), 0, 0], [0, (d65_cr[1, 0]/ a_cr[1,0]), 0], [0, 0 , (d65_cr[2,0]/a_cr[2,0])]])
+        m = inv_ma * term_matrix * ma
+        destination = m * source
+        return destination[0,0], destination[1,0], destination[2,0]
+
+
+    CIE_X, CIE_Y, CIE_Z = bradford(CIE_X, CIE_Y, CIE_Z)
 
     if calcRGB: # convert X,Y,Z tristimulus values to rgb
         r,g,b = xyz2rbg(spec_illum,CIE_X,CIE_Y,CIE_Z)
