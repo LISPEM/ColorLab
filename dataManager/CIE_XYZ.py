@@ -43,30 +43,37 @@ def CIElab(spec_illum, illum, cscalar, df_list, x_bar, y_bar, z_bar, calcRGB):
 
 
     CIE_X, CIE_Y, CIE_Z = tristimCalc(T, spec_illum)
-    D65_X, D65_Y, D65_Z = tristimCalc(T, "Standard Illuminant D65")
 
     
-    def bradford(CIE_X, CIE_Y, CIE_Z):
-        source = np.matrix([[CIE_X], [CIE_Y], [CIE_Z]])
-        print(source)
-        # D65 will always be destination color
-        ma = np.matrix([[0.8951000, 0.266400, -0.1614000], [-0.7502000, 1.7135000, 0.036700], [0.0389000, -0.0685000, 1.0296000]])
-        inv_ma = ma ** -1
-        
-        d65_white = np.matrix([[0.95047], [1.0000], [1.08883]])
-        a_white = np.matrix([[1.09850], [1.000], [0.35585]])
-
-        # cone response matrices
-        d65_cr = ma * d65_white
-        a_cr = ma * a_white
-        
-        term_matrix = np.matrix([[(d65_cr[0,0]/a_cr[0,0]), 0, 0], [0, (d65_cr[1, 0]/ a_cr[1,0]), 0], [0, 0 , (d65_cr[2,0]/a_cr[2,0])]])
-        m = inv_ma * term_matrix * ma
-        destination = m * source
-        return destination[0,0], destination[1,0], destination[2,0]
+    def bradford(CIE_X, CIE_Y, CIE_Z, spec_illum):
+        if spec_illum == "Standard Illuminant D65":
+            print("this worked")
+            return CIE_X, CIE_Y, CIE_Z
+        else:
+            source = np.matrix([[CIE_X], [CIE_Y], [CIE_Z]])
+            whites = pd.read_csv("dataManager/white_point.csv")
 
 
-    CIE_X, CIE_Y, CIE_Z = bradford(CIE_X, CIE_Y, CIE_Z)
+            # D65 will always be destination color
+            ma = np.matrix([[0.8951000, 0.266400, -0.1614000], [-0.7502000, 1.7135000, 0.036700], [0.0389000, -0.0685000, 1.0296000]])
+            inv_ma = ma ** -1
+            
+            d65_white = np.matrix([[0.95047], [1.0000], [1.08883]])
+            
+
+            src_white = np.matrix([[whites[spec_illum][0]], [whites[spec_illum][1]], [whites[spec_illum][2]]])
+
+            # cone response matrices
+            d65_cr = ma * d65_white
+            src_cr = ma * src_white
+            
+            term_matrix = np.matrix([[(d65_cr[0,0]/src_cr[0,0]), 0, 0], [0, (d65_cr[1, 0]/ src_cr[1,0]), 0], [0, 0 , (d65_cr[2,0]/src_cr[2,0])]])
+            m = inv_ma * term_matrix * ma
+            destination = m * source
+            return destination[0,0], destination[1,0], destination[2,0]
+
+
+    CIE_X, CIE_Y, CIE_Z = bradford(CIE_X, CIE_Y, CIE_Z, spec_illum)
 
     if calcRGB: # convert X,Y,Z tristimulus values to rgb
         r,g,b = xyz2rbg(spec_illum,CIE_X,CIE_Y,CIE_Z)

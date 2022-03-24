@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 from PyQt5.QtWidgets import QMainWindow, QFileDialog
 from ui.cl import Ui_MainWindow
 
-illum = pd.read_excel(r'dataManager/illuminants.xls')
+illum = pd.read_csv('dataManager/illuminants.csv')
 
 class RGBImage(QMainWindow): 
     

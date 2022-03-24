@@ -1,4 +1,4 @@
-Illuminant,Illuminant A,Illuminant C,Illuminant D50,Illuminant D55,Illuminant D65,Illuminant D75,Illuminant F2,Illuminant F7,Illuminant F11
-X,109.85,98.074,96.422,95.682,95.047,94.972,99.186,95.041,100.962
-Y,100,100,100,100,100,100,100,100,100
-Z,35.585,118.232,82.521,92.149,108.883,122.638,67.393,108.747,64.35
+Illuminant,Standard Illuminant D65,Standard Illuminant A,Illuminant C,Illuminant D50,Illuminant D55,Illuminant D75,F2,F7,F11
+X,0.95047,1.0985,0.98074,0.96422,0.95682,0.94972,0.99186,0.95041,1.00962
+Y,1,1,1,1,1,1,1,1,1
+Z,1.08883,0.35585,1.18232,0.82521,0.92149,1.22638,0.67393,1.08747,0.6435
