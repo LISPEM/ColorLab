@@ -38,7 +38,13 @@ def CIElab(spec_illum, illum, cscalar, df_list, x_bar, y_bar, z_bar, calcRGB):
         CIE_X = sum(T*x_bar*np.asarray(trimmed_illum[spec_illum])) * (K)
         CIE_Y = sum(T*y_bar*np.asarray(trimmed_illum[spec_illum])) * (K)
         CIE_Z = sum(T*z_bar*np.asarray(trimmed_illum[spec_illum])) * (K)
+        norm = max(CIE_X, CIE_Y, CIE_Z)
         print(spec_illum, "CIE XYZ:", CIE_X, CIE_Y, CIE_Z)
+        CIE_X = CIE_X / norm
+        CIE_Y = CIE_Y / norm
+        CIE_Z = CIE_Z / norm
+
+        print("New CIE XYZ:", CIE_X, CIE_Y, CIE_Z)
         return CIE_X, CIE_Y, CIE_Z
 
 
@@ -47,12 +53,10 @@ def CIElab(spec_illum, illum, cscalar, df_list, x_bar, y_bar, z_bar, calcRGB):
     
     def bradford(CIE_X, CIE_Y, CIE_Z, spec_illum):
         if spec_illum == "Standard Illuminant D65":
-            print("this worked")
             return CIE_X, CIE_Y, CIE_Z
         else:
             source = np.matrix([[CIE_X], [CIE_Y], [CIE_Z]])
             whites = pd.read_csv("dataManager/white_point.csv")
-
 
             # D65 will always be destination color
             ma = np.matrix([[0.8951000, 0.266400, -0.1614000], [-0.7502000, 1.7135000, 0.036700], [0.0389000, -0.0685000, 1.0296000]])

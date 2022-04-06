@@ -105,7 +105,7 @@ class RGBImage(QMainWindow):
             else:
                 if file.endswith('.csv'):
                     try:
-                        uvvis_data = pd.read_csv(r"{0}/{1}".format(self.filepath,file))
+                        uvvis_data = pd.read_csv(r"{0}/{1}".format(self.filepath,file), sep=None)
                     except:
                         print(file + ' is corrupt!')
                         
