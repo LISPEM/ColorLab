@@ -30,7 +30,7 @@ def CIElab(spec_illum, illum, cscalar, df_list, x_bar, y_bar, z_bar, calcRGB):
     trimmed_illum = illum.iloc[temp_3:temp_4+1,:]
     trimmed_illum.reset_index(inplace=True, drop=True) # reset indices
     T = trimmed_data["FT"]
-    T = (1+T)
+    T = (1+T) * 100
 
 
     def tristimCalc(T, spec_illum):
@@ -38,13 +38,7 @@ def CIElab(spec_illum, illum, cscalar, df_list, x_bar, y_bar, z_bar, calcRGB):
         CIE_X = sum(T*x_bar*np.asarray(trimmed_illum[spec_illum])) * (K)
         CIE_Y = sum(T*y_bar*np.asarray(trimmed_illum[spec_illum])) * (K)
         CIE_Z = sum(T*z_bar*np.asarray(trimmed_illum[spec_illum])) * (K)
-        norm = max(CIE_X, CIE_Y, CIE_Z)
-        print(spec_illum, "CIE XYZ:", CIE_X, CIE_Y, CIE_Z)
-        CIE_X = CIE_X / norm
-        CIE_Y = CIE_Y / norm
-        CIE_Z = CIE_Z / norm
-
-        print("New CIE XYZ:", CIE_X, CIE_Y, CIE_Z)
+        print("calc CIE XYZ:", CIE_X, CIE_Y, CIE_Z)
         return CIE_X, CIE_Y, CIE_Z
 
 
@@ -78,6 +72,13 @@ def CIElab(spec_illum, illum, cscalar, df_list, x_bar, y_bar, z_bar, calcRGB):
 
 
     CIE_X, CIE_Y, CIE_Z = bradford(CIE_X, CIE_Y, CIE_Z, spec_illum)
+    print("post bradford CIE XYZ", CIE_X, CIE_Y, CIE_Z)
+    norm = max(CIE_X, CIE_Y, CIE_Z)
+    CIE_X = CIE_X / norm
+    CIE_Y = CIE_Y / norm
+    CIE_Z = CIE_Z / norm
+    print("post norm CIE XYZ", CIE_X, CIE_Y, CIE_Z)
+    
 
     if calcRGB: # convert X,Y,Z tristimulus values to rgb
         r,g,b = xyz2rbg(spec_illum,CIE_X,CIE_Y,CIE_Z)
@@ -101,6 +102,7 @@ def xyz2rbg(spec_illum,X,Y,Z):
         R = (X * 3.2410) + (Y * -1.5374) + (Z * -0.4986)
         G = (X * -0.9692) + (Y * 1.8760) + (Z * 0.0416)
         B = (X * 0.0556) + (Y * -0.2040) + (Z * 1.0570)
+        print("pre gamma RGB", R, G, B)
 
         
 
@@ -125,6 +127,7 @@ def xyz2rbg(spec_illum,X,Y,Z):
 
     R, G, B = sRGB(X, Y, Z)
     print("post gamma RGB", R, G, B)
+    
 
     # sRGB conversion
     r = round(R * 255, 0)
