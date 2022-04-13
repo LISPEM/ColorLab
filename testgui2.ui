@@ -249,6 +249,13 @@ background-color: rgb(252, 224, 220);
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QRadioButton" name="radioButton_3">
+        <property name="text">
+         <string>AIPS</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
     <widget class="QWidget" name="layoutWidget">
