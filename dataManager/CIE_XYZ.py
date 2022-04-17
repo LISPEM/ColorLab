@@ -7,19 +7,32 @@ Created on Mon Oct 26 19:19:19 2020
 import pandas as pd 
 import numpy as np
 
-def CIElab(spec_illum, illum, df_list, x_bar, y_bar, z_bar, calcRGB):
-    wavelength = df_list["Wavelength"]
+def CIElab(spec_illum, illum, datatype, df_list, x_bar, y_bar, z_bar, calcRGB):
+    if datatype == 0:
+        subdf = df_list[['Wavelength', 'Absorbance']].copy()
+        subdf['Absorbance'] = 10 ** (-subdf['Absorbance'])
+        subdf.rename(columns = {'Absorbance':'Transmission'}, inplace=True)
+    elif datatype == 1:
+        subdf = df_list[['Wavelength', 'Transmission']].copy()
+    elif datatype == 2:
+        subdf = df_list[['Wavelength', 'FT']].copy()
+        subdf['FT'] = (1+subdf['FT']) * 100
+        subdf.rename(columns = {'FT':'Transmission'}, inplace=True)
+    else:
+        print('This should never print')
+    print(subdf)
+    wavelength = subdf["Wavelength"]
 
     step_size_data = abs(wavelength[0] - wavelength[1])
 
     step_size = int(abs(illum["Wavelength"][0]-illum["Wavelength"][1])/step_size_data)
 
     # trim input data to the range of 380-780nm
-    temp_1 = df_list.loc[df_list["Wavelength"]==380].index[0]
-    temp_2 = df_list.loc[df_list["Wavelength"]==780].index[0]
+    temp_1 = subdf.loc[df_list["Wavelength"]==380].index[0]
+    temp_2 = subdf.loc[df_list["Wavelength"]==780].index[0]
 
-    trimmed_data = df_list.iloc[temp_1:temp_2+1,:]
-    trimmed_data = trimmed_data[['Wavelength','FT','FR','FA (1-FR-FT)']]
+    trimmed_data = subdf.iloc[temp_1:temp_2+1,:]
+    trimmed_data = trimmed_data[['Wavelength','Transmission']]
     trimmed_data = trimmed_data.iloc[::step_size] # resize data based on step size
     trimmed_data.reset_index(inplace=True, drop=True) # reset indices
 
@@ -29,8 +42,7 @@ def CIElab(spec_illum, illum, df_list, x_bar, y_bar, z_bar, calcRGB):
 
     trimmed_illum = illum.iloc[temp_3:temp_4+1,:]
     trimmed_illum.reset_index(inplace=True, drop=True) # reset indices
-    T = trimmed_data["FT"]
-    T = (1+T) * 100
+    T = trimmed_data['Transmission']
 
 
     def tristimCalc(T, spec_illum):
