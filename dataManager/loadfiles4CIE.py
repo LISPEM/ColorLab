@@ -44,7 +44,6 @@ class RGBImage(QMainWindow):
             datatype = 1
         if self.gui.radioButton_3.isChecked():
             datatype = 2
-        print(datatype)
         filelist = os.listdir(self.filepath)
         filelist.sort()
         spec_illum = str(self.gui.comboBox.currentText()) # specify the illuminant
@@ -145,7 +144,7 @@ class RGBImage(QMainWindow):
                     continue
                 
                 try:
-                    L,a,b,rr,gg,bb = CIElab(spec_illum,illum,uvvis_data,x_bar,y_bar,z_bar,calc_rgb)
+                    L,a,b,rr,gg,bb = CIElab(spec_illum,illum,datatype,uvvis_data,x_bar,y_bar,z_bar,calc_rgb)
                     lab_values[i,0] = L
                     lab_values[i,1] = a
                     lab_values[i,2] = b
