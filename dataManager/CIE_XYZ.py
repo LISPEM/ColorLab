@@ -7,7 +7,7 @@ Created on Mon Oct 26 19:19:19 2020
 import pandas as pd 
 import numpy as np
 
-def CIElab(spec_illum, illum, cscalar, df_list, x_bar, y_bar, z_bar, calcRGB):
+def CIElab(spec_illum, illum, df_list, x_bar, y_bar, z_bar, calcRGB):
     wavelength = df_list["Wavelength"]
 
     step_size_data = abs(wavelength[0] - wavelength[1])

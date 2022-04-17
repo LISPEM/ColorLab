@@ -33,13 +33,21 @@ class RGBImage(QMainWindow):
         self.gui.lineEdit.setText(self.filepath)
         self.gui.lineEdit.setReadOnly(False)
         
+     
+
     def loadFiles(self):
-        
         self.statusBar().clearMessage()
+        datatype = 0
+        if self.gui.radioButton.isChecked():
+            datatype = 0
+        if self.gui.radioButton_2.isChecked():
+            datatype = 1
+        if self.gui.radioButton_3.isChecked():
+            datatype = 2
+        print(datatype)
         filelist = os.listdir(self.filepath)
         filelist.sort()
         spec_illum = str(self.gui.comboBox.currentText()) # specify the illuminant
-        cscalar =  int(self.gui.comboBox_2.currentText()) # specify saturation scalar
         image_title = str(self.gui.lineEdit_2.text())
         image_aspect = float(self.gui.lineEdit_3.text())
         calc_rgb = True # do you want to calculate rgb values?
@@ -137,7 +145,7 @@ class RGBImage(QMainWindow):
                     continue
                 
                 try:
-                    L,a,b,rr,gg,bb = CIElab(spec_illum,illum,cscalar,uvvis_data,x_bar,y_bar,z_bar,calc_rgb)
+                    L,a,b,rr,gg,bb = CIElab(spec_illum,illum,uvvis_data,x_bar,y_bar,z_bar,calc_rgb)
                     lab_values[i,0] = L
                     lab_values[i,1] = a
                     lab_values[i,2] = b
