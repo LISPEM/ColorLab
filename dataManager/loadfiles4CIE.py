@@ -12,7 +12,7 @@ import numpy as np
 from dataManager.CIE_XYZ import CIElab
 import matplotlib.pyplot as plt
 from PyQt5.QtWidgets import QMainWindow, QFileDialog
-from ui.cl import Ui_MainWindow
+from ui.testgui2 import Ui_MainWindow
 
 illum = pd.read_csv('dataManager/illuminants.csv')
 
