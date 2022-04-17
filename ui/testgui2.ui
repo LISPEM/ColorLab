@@ -49,7 +49,7 @@
      </font>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:36pt; font-weight:400; color:#676291;&quot;&gt;Welcome to Colorlab!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:22pt; font-weight:400; color:#000000;&quot;&gt;ColorLab&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -79,7 +79,7 @@
        <x>10</x>
        <y>90</y>
        <width>601</width>
-       <height>31</height>
+       <height>38</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -192,7 +192,7 @@
          <font>
           <family>Bahnschrift SemiBold SemiConden</family>
           <pointsize>10</pointsize>
-          <weight>9</weight>
+          <weight>50</weight>
           <italic>false</italic>
           <bold>false</bold>
           <stylestrategy>NoAntialias</stylestrategy>
@@ -216,12 +216,12 @@ background-color: rgb(252, 224, 220);
        <x>10</x>
        <y>133</y>
        <width>601</width>
-       <height>31</height>
+       <height>38</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
-       <widget class="QLabel" name="label_5">
+       <widget class="QLabel" name="label_8">
         <property name="font">
          <font>
           <family>Bahnschrift SemiBold SemiConden</family>
@@ -231,48 +231,29 @@ background-color: rgb(252, 224, 220);
          </font>
         </property>
         <property name="text">
-         <string>Saturation Scalar</string>
+         <string>Data type?</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QComboBox" name="comboBox_2">
-        <property name="font">
-         <font>
-          <family>Bahnschrift SemiBold SemiConden</family>
-          <pointsize>10</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
+       <widget class="QRadioButton" name="radioButton">
+        <property name="text">
+         <string>Absorbance</string>
         </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(170, 118, 146);</string>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="radioButton_2">
+        <property name="text">
+         <string>Transmission</string>
         </property>
-        <item>
-         <property name="text">
-          <string>1</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>2</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>3</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>4</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>5</string>
-         </property>
-        </item>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="radioButton_3">
+        <property name="text">
+         <string>AIPS</string>
+        </property>
        </widget>
       </item>
      </layout>
@@ -322,7 +303,7 @@ background-color: rgb(252, 224, 220);
       <rect>
        <x>10</x>
        <y>240</y>
-       <width>159</width>
+       <width>181</width>
        <height>41</height>
       </rect>
      </property>
@@ -404,24 +385,45 @@ background-color: rgb(252, 224, 220);
      <pixmap>../../Pictures/sf.png</pixmap>
     </property>
    </widget>
-  </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>859</width>
-     <height>26</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menuUniversity_of_Arizona_Ratcliff_Group">
-    <property name="title">
-     <string>University of Arizona | Ratcliff Group</string>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>281</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://ratcliff.faculty.arizona.edu/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#1b6acb;&quot;&gt;Ratcliff Group @ The University of Arizona&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="openExternalLinks">
+     <bool>true</bool>
     </property>
    </widget>
-   <addaction name="menuUniversity_of_Arizona_Ratcliff_Group"/>
+   <widget class="QLabel" name="label_9">
+    <property name="geometry">
+     <rect>
+      <x>800</x>
+      <y>10</y>
+      <width>51</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/LISPEM/ColorLab&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#1b6acb;&quot;&gt;GitHub&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="openExternalLinks">
+     <bool>true</bool>
+    </property>
+   </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionGitHub">
+   <property name="text">
+    <string>GitHub</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
