@@ -115,16 +115,24 @@ def xyz2rbg(spec_illum,X,Y,Z):
         G = (X * -0.9692) + (Y * 1.8760) + (Z * 0.0416)
         B = (X * 0.0556) + (Y * -0.2040) + (Z * 1.0570)
         # print("pre gamma RGB", R, G, B)
-
+        print("RGB calc:", R, G, B)
         
 
         def gamma_adj(C):
             if C < 0.0031308:
                 return 12.92 * C
             else:
-                return (1.055 * (C**0.41666)-0.055)
+                return 1.055 * C**0.41666 - 0.055
 
-        maxVal = max(R,G,B)
+        def clipping(C):
+            if C > 1:
+                C = 1
+            return C
+
+
+        R = clipping(R)
+        G = clipping(G)
+        B = clipping(B)
 
         R = gamma_adj(R)
         G = gamma_adj(G)
@@ -136,9 +144,9 @@ def xyz2rbg(spec_illum,X,Y,Z):
     def adobeRGB(X,Y,Z):
         print("in the works")
         
-
+    print('pre srgb:', X, Y, Z)
     R, G, B = sRGB(X, Y, Z)
-    # print("post gamma RGB", R, G, B)
+    print("post gamma RGB", R, G, B)
     
 
     # sRGB conversion
@@ -146,7 +154,7 @@ def xyz2rbg(spec_illum,X,Y,Z):
     g = round(G * 255, 0)
     b = round(B * 255, 0)
 
-    # print(r,g,b)
+    print(r,g,b)
     
     return r, g, b
     
