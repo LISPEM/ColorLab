@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>859</width>
-    <height>563</height>
+    <width>665</width>
+    <height>466</height>
    </rect>
   </property>
   <property name="font">
@@ -34,22 +34,25 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>190</x>
-      <y>40</y>
-      <width>501</width>
-      <height>71</height>
+      <x>10</x>
+      <y>30</y>
+      <width>641</width>
+      <height>81</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <family>Bahnschrift SemiBold SemiConden</family>
+      <family>MS Shell Dlg 2</family>
       <pointsize>24</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
+      <weight>50</weight>
+      <bold>false</bold>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(220, 220, 220)</string>
+    </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:22pt; font-weight:400; color:#000000;&quot;&gt;ColorLab&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:22pt; font-style:italic; color:#000000;&quot;&gt;ColorLab&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -61,11 +64,14 @@
    <widget class="QFrame" name="frame">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>120</y>
+      <x>10</x>
+      <y>110</y>
       <width>641</width>
       <height>331</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(220, 220, 220)</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
@@ -87,10 +93,10 @@
        <widget class="QLabel" name="label_3">
         <property name="font">
          <font>
-          <family>Bahnschrift SemiBold SemiConden</family>
+          <family>MS Shell Dlg 2</family>
           <pointsize>10</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
+          <weight>50</weight>
+          <bold>false</bold>
          </font>
         </property>
         <property name="text">
@@ -102,23 +108,23 @@
        <widget class="QComboBox" name="comboBox">
         <property name="font">
          <font>
-          <family>Bahnschrift SemiBold SemiConden</family>
+          <family>MS Shell Dlg 2</family>
           <pointsize>10</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
+          <weight>50</weight>
+          <bold>false</bold>
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(216, 162, 172);</string>
+         <string notr="true">background-color: rgb(255, 255, 255)</string>
         </property>
         <item>
          <property name="text">
-          <string>Standard Illuminant A</string>
+          <string>Standard Illuminant D65</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>Standard Illuminant D65</string>
+          <string>Standard Illuminant A</string>
          </property>
         </item>
         <item>
@@ -141,6 +147,21 @@
           <string>Illuminant D75</string>
          </property>
         </item>
+        <item>
+         <property name="text">
+          <string>F2</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>F7</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>F11</string>
+         </property>
+        </item>
        </widget>
       </item>
      </layout>
@@ -159,10 +180,10 @@
        <widget class="QLabel" name="label_2">
         <property name="font">
          <font>
-          <family>Bahnschrift SemiBold SemiConden</family>
+          <family>MS Shell Dlg 2</family>
           <pointsize>10</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
+          <weight>50</weight>
+          <bold>false</bold>
          </font>
         </property>
         <property name="text">
@@ -177,7 +198,7 @@
        <widget class="QLineEdit" name="lineEdit">
         <property name="font">
          <font>
-          <family>Bahnschrift Light SemiCondensed</family>
+          <family>MS Shell Dlg 2</family>
           <pointsize>10</pointsize>
          </font>
         </property>
@@ -190,18 +211,13 @@
        <widget class="QPushButton" name="pushButton">
         <property name="font">
          <font>
-          <family>Bahnschrift SemiBold SemiConden</family>
+          <family>MS Shell Dlg 2</family>
           <pointsize>10</pointsize>
           <weight>50</weight>
           <italic>false</italic>
           <bold>false</bold>
           <stylestrategy>NoAntialias</stylestrategy>
          </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(216, 162, 172);
-background-color: rgb(252, 224, 220);
-</string>
         </property>
         <property name="text">
          <string>Browse</string>
@@ -224,10 +240,10 @@ background-color: rgb(252, 224, 220);
        <widget class="QLabel" name="label_8">
         <property name="font">
          <font>
-          <family>Bahnschrift SemiBold SemiConden</family>
+          <family>MS Shell Dlg 2</family>
           <pointsize>10</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
+          <weight>50</weight>
+          <bold>false</bold>
          </font>
         </property>
         <property name="text">
@@ -272,10 +288,10 @@ background-color: rgb(252, 224, 220);
        <widget class="QLabel" name="label_6">
         <property name="font">
          <font>
-          <family>Bahnschrift SemiBold SemiConden</family>
+          <family>MS Shell Dlg 2</family>
           <pointsize>10</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
+          <weight>50</weight>
+          <bold>false</bold>
          </font>
         </property>
         <property name="text">
@@ -312,10 +328,10 @@ background-color: rgb(252, 224, 220);
        <widget class="QLabel" name="label_7">
         <property name="font">
          <font>
-          <family>Bahnschrift SemiBold SemiConden</family>
+          <family>MS Shell Dlg 2</family>
           <pointsize>10</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
+          <weight>50</weight>
+          <bold>false</bold>
          </font>
         </property>
         <property name="text">
@@ -355,44 +371,28 @@ background-color: rgb(252, 224, 220);
      </property>
      <property name="font">
       <font>
-       <family>Bahnschrift SemiBold SemiConden</family>
+       <family>MS Shell Dlg 2</family>
        <pointsize>10</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
+       <weight>50</weight>
+       <bold>false</bold>
       </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(252, 224, 220);</string>
      </property>
      <property name="text">
       <string>Load Files</string>
      </property>
     </widget>
    </widget>
-   <widget class="QLabel" name="label_4">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>60</y>
-      <width>16</width>
-      <height>371</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap>../../Pictures/sf.png</pixmap>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>281</width>
+      <x>20</x>
+      <y>30</y>
+      <width>211</width>
       <height>19</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(220, 220, 220)</string>
     </property>
     <property name="text">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://ratcliff.faculty.arizona.edu/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#1b6acb;&quot;&gt;Ratcliff Group @ The University of Arizona&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -404,14 +404,17 @@ background-color: rgb(252, 224, 220);
    <widget class="QLabel" name="label_9">
     <property name="geometry">
      <rect>
-      <x>800</x>
-      <y>10</y>
-      <width>51</width>
+      <x>20</x>
+      <y>60</y>
+      <width>111</width>
       <height>20</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(220, 220, 220)</string>
+    </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/LISPEM/ColorLab&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#1b6acb;&quot;&gt;GitHub&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/LISPEM/ColorLab&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#1b6acb;&quot;&gt;Get the latest version&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="openExternalLinks">
      <bool>true</bool>
