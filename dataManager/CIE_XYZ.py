@@ -20,7 +20,7 @@ def CIElab(spec_illum, illum, datatype, df_list, x_bar, y_bar, z_bar, calcRGB):
         subdf.rename(columns = {'FT':'Transmission'}, inplace=True)
     else:
         print('This should never print')
-    print(subdf)
+    # print(subdf)
     wavelength = subdf["Wavelength"]
 
     step_size_data = abs(wavelength[0] - wavelength[1])
@@ -50,7 +50,7 @@ def CIElab(spec_illum, illum, datatype, df_list, x_bar, y_bar, z_bar, calcRGB):
         CIE_X = sum(T*x_bar*np.asarray(trimmed_illum[spec_illum])) * (K)
         CIE_Y = sum(T*y_bar*np.asarray(trimmed_illum[spec_illum])) * (K)
         CIE_Z = sum(T*z_bar*np.asarray(trimmed_illum[spec_illum])) * (K)
-        print("calc CIE XYZ:", CIE_X, CIE_Y, CIE_Z)
+        # print("calc CIE XYZ:", CIE_X, CIE_Y, CIE_Z)
         return CIE_X, CIE_Y, CIE_Z
 
 
@@ -84,12 +84,12 @@ def CIElab(spec_illum, illum, datatype, df_list, x_bar, y_bar, z_bar, calcRGB):
 
 
     CIE_X, CIE_Y, CIE_Z = bradford(CIE_X, CIE_Y, CIE_Z, spec_illum)
-    print("post bradford CIE XYZ", CIE_X, CIE_Y, CIE_Z)
+    # print("post bradford CIE XYZ", CIE_X, CIE_Y, CIE_Z)
     norm = max(CIE_X, CIE_Y, CIE_Z)
     CIE_X = CIE_X / norm
     CIE_Y = CIE_Y / norm
     CIE_Z = CIE_Z / norm
-    print("post norm CIE XYZ", CIE_X, CIE_Y, CIE_Z)
+    # print("post norm CIE XYZ", CIE_X, CIE_Y, CIE_Z)
     
 
     if calcRGB: # convert X,Y,Z tristimulus values to rgb
@@ -114,7 +114,7 @@ def xyz2rbg(spec_illum,X,Y,Z):
         R = (X * 3.2410) + (Y * -1.5374) + (Z * -0.4986)
         G = (X * -0.9692) + (Y * 1.8760) + (Z * 0.0416)
         B = (X * 0.0556) + (Y * -0.2040) + (Z * 1.0570)
-        print("pre gamma RGB", R, G, B)
+        # print("pre gamma RGB", R, G, B)
 
         
 
@@ -138,7 +138,7 @@ def xyz2rbg(spec_illum,X,Y,Z):
         
 
     R, G, B = sRGB(X, Y, Z)
-    print("post gamma RGB", R, G, B)
+    # print("post gamma RGB", R, G, B)
     
 
     # sRGB conversion
@@ -146,7 +146,7 @@ def xyz2rbg(spec_illum,X,Y,Z):
     g = round(G * 255, 0)
     b = round(B * 255, 0)
 
-    print(r,g,b)
+    # print(r,g,b)
     
     return r, g, b
     
