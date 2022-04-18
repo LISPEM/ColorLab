@@ -309,7 +309,7 @@
        <widget class="QLineEdit" name="lineEdit_2">
         <property name="font">
          <font>
-          <family>Bahnschrift Light SemiCondensed</family>
+          <family>MS Shell Dlg 2</family>
           <pointsize>10</pointsize>
          </font>
         </property>
@@ -349,7 +349,7 @@
        <widget class="QLineEdit" name="lineEdit_3">
         <property name="font">
          <font>
-          <family>Bahnschrift Light SemiCondensed</family>
+          <family>MS Shell Dlg 2</family>
           <pointsize>10</pointsize>
          </font>
         </property>
