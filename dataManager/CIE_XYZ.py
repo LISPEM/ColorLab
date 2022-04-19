@@ -85,10 +85,10 @@ def CIElab(spec_illum, illum, datatype, df_list, x_bar, y_bar, z_bar, calcRGB):
 
     CIE_X, CIE_Y, CIE_Z = bradford(CIE_X, CIE_Y, CIE_Z, spec_illum)
     # print("post bradford CIE XYZ", CIE_X, CIE_Y, CIE_Z)
-    norm = max(CIE_X, CIE_Y, CIE_Z)
-    CIE_X = CIE_X / norm
-    CIE_Y = CIE_Y / norm
-    CIE_Z = CIE_Z / norm
+    # norm = max(CIE_X, CIE_Y, CIE_Z)
+    # CIE_X = CIE_X / norm
+    # CIE_Y = CIE_Y / norm
+    # CIE_Z = CIE_Z / norm
     # print("post norm CIE XYZ", CIE_X, CIE_Y, CIE_Z)
     
 
