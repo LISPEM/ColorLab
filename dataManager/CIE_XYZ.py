@@ -4,8 +4,12 @@ Created on Mon Oct 26 19:19:19 2020
 
 @author: priscillababiak
 """
-import pandas as pd 
+import os
+import pandas as pd
 import numpy as np
+
+_MODULE_DIR = os.path.dirname(os.path.abspath(__file__))
+_WHITE_POINT_PATH = os.path.join(_MODULE_DIR, "white_point.csv")
 
 def data_cleanup(loaded_data):
     loaded_data['Wavelength'] = loaded_data['Wavelength'].astype(int)
@@ -19,6 +23,10 @@ def CIElab(spec_illum, illum, datatype, df_list, x_bar, y_bar, z_bar, calcRGB):
         subdf.rename(columns = {'Absorbance':'Transmission'}, inplace=True)
     elif datatype == 1:
         subdf = df_list[['Wavelength', 'Transmission']].copy()
+        # Auto-scale %T (0-100) to fractional (0-1). Values slightly above 100
+        # are tolerated (instrument noise on near-transparent references).
+        if subdf['Transmission'].max() > 1.5:
+            subdf['Transmission'] = subdf['Transmission'] / 100
     elif datatype == 2:
         subdf = df_list[['Wavelength', 'FT']].copy()
         subdf['FT'] = (1+subdf['FT']) * 100
@@ -69,7 +77,7 @@ def CIElab(spec_illum, illum, datatype, df_list, x_bar, y_bar, z_bar, calcRGB):
             return CIE_X, CIE_Y, CIE_Z
         else:
             source = np.matrix([[CIE_X], [CIE_Y], [CIE_Z]])
-            whites = pd.read_csv("dataManager/white_point.csv")
+            whites = pd.read_csv(_WHITE_POINT_PATH)
 
             # D65 will always be destination color
             ma = np.matrix([[0.8951000, 0.266400, -0.1614000], [-0.7502000, 1.7135000, 0.036700], [0.0389000, -0.0685000, 1.0296000]])

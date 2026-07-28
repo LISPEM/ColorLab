@@ -31,6 +31,7 @@ MANIFEST
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
 *.manifest
 *.spec
+!ColorLab.spec
 
 # Installer logs
 pip-log.txt
@@ -107,11 +108,15 @@ celerybeat.pid
 # Environments
 .env
 .venv
+.venv-build/
 env/
 venv/
 ENV/
 env.bak/
 venv.bak/
+
+# Local tool state
+.claude/
 
 # Spyder project settings
 .spyderproject
@@ -143,3 +148,7 @@ cython_debug/
 # Image related stuff
 images/
 *.png
+
+# User spectra inputs
+*.xls
+*.xlsx
